@@ -1,0 +1,60 @@
+
+<html>
+	<head>
+		<title>test</title>
+	</head>
+	<body>
+		<form onsubmit="return false;">
+			<input type="text" name="message">
+			<button onclick="send(this.form.message.value)">send</button>
+			<br>
+			<h3>return messages</h3>
+			<textarea id="returns" rows="50" cols="100"></textarea>
+		</form>
+	</body>
+	<script type="text/javascript">
+		var socket
+		if(!window.WebSocket){
+			window.WebSocket = window.MozWebSocket
+		}
+		if(window.WebSocket){
+			socket = new WebSocket("ws://localhost:8081/websocket")
+			socket.onmessage = function(event){
+				var returns = document.getElementById("returns")
+				returns.value = returns.value + "\n"
+				returns.value = returns.value + event.data
+			}
+			socket.onopen = function(event){
+				var returns = document.getElementById("returns")
+				returns.value = returns.value + "\n"
+				returns.value = returns.value + "已经连接上WebSocket服务器"
+				var msg = new Object();
+				msg.type = "connect";
+				var data = new Object();
+				data.userId = 1;
+				data.ip = "127.0.0.1";			
+				msg.data = data;
+				var data = JSON.stringify(msg);
+				console.log(data);
+				send(data);
+			}
+			socket.onclose = function(event){
+				var returns = document.getElementById("returns")
+				returns.value = returns.value + "\n"
+				returns.value = returns.value + "断开与Socket服务器的连接"
+			}
+		}
+		function send(msg){
+			if(!socket){
+				alert()
+				return
+			}
+			if(socket.readyState == WebSocket.OPEN){
+				socket.send(msg)
+			}else{
+				alert("WebSocket还未连接成功")
+			}
+		}
+	</script>
+</html>
+

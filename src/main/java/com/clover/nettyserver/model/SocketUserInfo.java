@@ -1,5 +1,6 @@
 package com.clover.nettyserver.model;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
 public class SocketUserInfo {
@@ -9,6 +10,17 @@ public class SocketUserInfo {
     private String ip;
 
     private ChannelHandlerContext channelHandlerContext;
+
+    private Channel channel;
+
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
 
     public int getUserId() {
         return userId;

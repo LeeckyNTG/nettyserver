@@ -1,0 +1,5 @@
+server:
+  port: 8081
+
+netty:
+  websocket_port: 8003

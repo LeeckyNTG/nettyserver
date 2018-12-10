@@ -1,7 +1,3 @@
-server:
-  port: 8080
-
-
-
-netty:
-  websocket_port: 8003
+spring:
+  profiles:
+    active: dev

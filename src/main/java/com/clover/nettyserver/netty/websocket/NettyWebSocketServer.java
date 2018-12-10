@@ -128,8 +128,6 @@ public class NettyWebSocketServer {
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
             channelHandlerContext = ctx;
-
-
             //发送心跳包
             new java.util.Timer().schedule(new TimerTask() {
 
